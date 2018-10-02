@@ -27,7 +27,7 @@ public class ConsoleApplication {
                     startGame();
                     break;
                 case 2:
-                    System.out.println("Tutaj beda wyniki");
+                    addPhrase();
                     break;
                 case 0:
                     flag=false;
@@ -54,5 +54,10 @@ public class ConsoleApplication {
         } else {
             consoleViews.displayGameLose();
         }
+    }
+
+    private void addPhrase() {
+//        String phrase = consoleViews.addPhraseMessage();
+
     }
 }
