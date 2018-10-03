@@ -50,4 +50,25 @@ public class ConsoleViews {
         System.out.println("Wcisnij enter zeby kontynuowac");
         scanner.nextLine();
     }
+
+    public String addPhraseMessage() {
+        System.out.println("Podaj frazę");
+        return scanner.nextLine();
+    }
+
+    public void displayPhraseContainsForbiddenWords() {
+        System.out.println("Podana fraza zawiera zabornione słowa");
+        waitForAction();
+
+    }
+
+    public void displayPhraseAlreadyExists() {
+        System.out.println("Podana fraza już istnieje");
+        waitForAction();
+    }
+
+    public void displayPhraseAddedSuccessfuly(String phrase) {
+        System.out.println("Pomyslnie dodano fraze" + phrase);
+        waitForAction();
+    }
 }

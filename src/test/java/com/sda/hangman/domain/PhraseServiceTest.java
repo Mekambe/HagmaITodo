@@ -4,6 +4,7 @@ import com.sda.hangman.domain.exceptions.ForbiddenWordsInPhraseException;
 import com.sda.hangman.domain.exceptions.PhraseAlreadyExistsException;
 import com.sda.hangman.domain.port.PhraseRepository;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 public class PhraseServiceTest {
@@ -13,6 +14,9 @@ public class PhraseServiceTest {
         //given
         PhraseRepository phraseRepository = Mockito.mock(PhraseRepository.class);
         ForbiddenWordsValidator forbiddenWordsValidator = Mockito.mock(ForbiddenWordsValidator.class);
+        Mockito.when(phraseRepository.contains(Mockito.anyString())).thenReturn(false);
+        Mockito.when(forbiddenWordsValidator.validate(Mockito.anyString())).thenReturn(true);
+
         PhraseService phraseService = new PhraseService(phraseRepository, forbiddenWordsValidator);
 
         //when
@@ -24,10 +28,16 @@ public class PhraseServiceTest {
         //given
         PhraseRepository phraseRepository = Mockito.mock(PhraseRepository.class);
         ForbiddenWordsValidator forbiddenWordsValidator = Mockito.mock(ForbiddenWordsValidator.class);
+        Mockito.when(phraseRepository.contains(Mockito.anyString())).thenReturn(true);
+        Mockito.when(forbiddenWordsValidator.validate(Mockito.anyString())).thenReturn(true);
+
         PhraseService phraseService = new PhraseService(phraseRepository, forbiddenWordsValidator);
 
         //when
         phraseService.addPhrase("phrase with forbiddenWord");
+
+        //then
+        Mockito.verify(phraseRepository,Mockito.times(1)).save("phrase with firbiddenWord");
     }
 
     @Test(expected = ForbiddenWordsInPhraseException.class)

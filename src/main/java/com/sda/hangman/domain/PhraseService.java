@@ -19,5 +19,13 @@ public class PhraseService {
 
     public void addPhrase(String phrase) throws ForbiddenWordsInPhraseException, PhraseAlreadyExistsException {
 
+        if (phraseRepository.contains(phrase)) {
+            throw new PhraseAlreadyExistsException("Phrase" + phrase + "already exists");
+        }
+
+        if (!forbiddenWordsValidator.validate(phrase)){
+            throw new ForbiddenWordsInPhraseException("Phrasecontains fobidden words");
+        }
+        phraseRepository.save(phrase);
     }
 }
